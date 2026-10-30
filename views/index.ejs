@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        
+        p {
+            margin-left: 10px;
+        }
+        
+        .chats {
+            width: 400px;
+            border: 2px solid black;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: aliceblue;
+        }
+        
+        h3,
+        h5 {
+            text-align: center;
+        }
+        
+        .msg {
+            margin-left: 10px;
+            font-style: italic;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Here are Your Chats</h1>
+
+    <button><a href="/chats/new">New 
+      Chat
+    </a></button>
+    <br>
+    <br>
+    <div class="container">
+        <%chats.forEach((chat)=>{%>
+            <div class="chats">
+                <h3>
+                    <%=chat.from%>
+                </h3>
+                <h5>
+                    TO:
+                    <%=chat.to%>
+                </h5>
+                <p class="msg">
+                    Msg:
+                    <%=chat.msg%>
+                </p>
+
+
+                <p>
+                    <%= chat.created_at.toLocaleString('en-IN', {
+                  timeZone: 'Asia/Kolkata'
+             }) %>
+                </p>
+                <br>
+                <button style="margin-left:40%;margin-bottom: 30px; height: 30px; width: 90px; ;"><a href="/chats/<%=chat._id%>/edit">Edit</a></button>
+                <br><br>
+                <form action="/chats/<%=chat._id%>?_method=DELETE" method="POST" class="delete-form">
+                    <button class="delete " style="height: 30px;width: 80px; margin-left: 40%; margin-bottom: 10px; ">Delete</button>
+                </form>
+            </div>
+            <%})%>
+    </div>
+
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
